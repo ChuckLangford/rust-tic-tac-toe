@@ -20,6 +20,11 @@ fn clear_the_screen() {
     println!("{}", String::from_utf8_lossy(&output.stdout));
 }
 
+fn ask_for_input() {
+    print!("Enter your selection: ");
+    io::stdout().flush().unwrap();
+}
+
 fn get_board_character(pos: u8, refer: u8) -> String {
     if pos == 1 {
         String::from("X")
@@ -47,8 +52,7 @@ fn print_the_board(player: u8, the_board: &[u8; 9]) {
         }
     }
 
-    print!("Enter your selection: ");
-    io::stdout().flush().unwrap();
+    ask_for_input();
 }
 
 fn take_turn(player: u8, the_board: &mut[u8; 9]) {
@@ -74,7 +78,14 @@ fn take_turn(player: u8, the_board: &mut[u8; 9]) {
         Err(e) =>  panic!("Yikes {}", e),
     };
 
-    // check that the selection is acceptable
+    // check that the user has not selected a tile that has already been chosen
+    if the_board[usize::from(selection - 1)] != 0 {
+        println!("Position {} has already been played. Choose another position.", selection);
+        ask_for_input();
+        return take_turn(player, the_board);
+    }
+
+    // check that the user has selected a valid number
     // update the board
     the_board[usize::from(selection - 1)] = player;
 }
