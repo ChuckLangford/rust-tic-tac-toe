@@ -75,8 +75,19 @@ fn take_turn(player: u8, the_board: &mut[u8; 9]) {
      */
     let selection: u8 = match selection.trim().parse() {
         Ok(num) => num,
-        Err(e) =>  panic!("Yikes {}", e),
+        Err(_e) =>  {
+            println!("Your selection is not a valid number from the board.");
+            ask_for_input();
+            return take_turn(player, the_board);
+        }
     };
+
+    // check that the user has selected a valid number
+    if selection > 9 || selection < 1 {
+        println!("{} is not a valid tile on the board.", selection);
+        ask_for_input();
+        return take_turn(player, the_board);
+    }
 
     // check that the user has not selected a tile that has already been chosen
     if the_board[usize::from(selection - 1)] != 0 {
@@ -85,7 +96,6 @@ fn take_turn(player: u8, the_board: &mut[u8; 9]) {
         return take_turn(player, the_board);
     }
 
-    // check that the user has selected a valid number
     // update the board
     the_board[usize::from(selection - 1)] = player;
 }
