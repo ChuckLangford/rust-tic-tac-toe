@@ -35,6 +35,13 @@ fn get_board_character(pos: u8, refer: u8) -> String {
     }
 }
 
+#[test]
+fn test_get_board_character() {
+    assert_eq!(get_board_character(1 as u8, 1 as u8), "X");
+    assert_eq!(get_board_character(2 as u8, 1 as u8), "O");
+    assert_eq!(get_board_character(0 as u8, 1 as u8), 1.to_string());
+}
+
 fn print_the_board(player: u8, the_board: &[u8; 9]) {
     clear_the_screen();
     println!("Player {}, please select a position on the board. Only values 1 through 9 are valid.", player);
