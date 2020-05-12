@@ -170,12 +170,26 @@ fn game_is_draw(the_board: &[u8; 9]) -> bool {
     true
 }
 
+#[test]
+fn test_game_is_draw() {
+    let not_draw: [u8; 9] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    assert_eq!(game_is_draw(&not_draw), false);
+    let draw: [u8; 9] = [1, 2, 1, 2, 2, 1, 1, 1, 2];
+    assert_eq!(game_is_draw(&draw), true);
+}
+
 fn toggle_player(player: u8) -> u8 {
     if player == 1 {
         2
     } else {
         1
     }
+}
+
+#[test]
+fn test_toggle_player() {
+    assert_eq!(toggle_player(1 as u8), 2);
+    assert_eq!(toggle_player(2 as u8), 1);
 }
 
 fn main() {
