@@ -161,6 +161,30 @@ fn player_has_won(player_number: u8, the_board: &[u8; 9]) -> bool {
     false
 }
 
+#[test]
+fn test_player_has_won() {
+    let mut board: [u8; 9] = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+    assert_eq!(player_has_won(1, &board), false);
+    board = [1, 1, 1, 0, 0, 0, 0, 0, 0];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [1, 1, 1, 0, 0, 0, 0, 0, 0];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [0, 0, 0, 1, 1, 1, 0, 0, 0];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [0, 0, 0, 0, 0, 0, 1, 1, 1];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [1, 0, 0, 1, 0, 0, 1, 0, 0];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [0, 1, 0, 0, 1, 0, 0, 1, 0];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [0, 0, 1, 0, 0, 1, 0, 0, 1];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    assert_eq!(player_has_won(1, &board), true);
+    board = [0, 0, 1, 0, 1, 0, 1, 0, 0];
+    assert_eq!(player_has_won(1, &board), true);
+}
+
 fn game_is_draw(the_board: &[u8; 9]) -> bool {
     for position in the_board.iter() {
         if *position == 0 {
