@@ -44,15 +44,15 @@ fn test_get_board_character() {
 
 fn print_the_board(player: u8, the_board: &[u8; 9]) {
     clear_the_screen();
-    println!("Player {}, please select a position on the board. Only values 1 through 9 are valid.", player);
+    println!("Player {}, please select a tile on the board. Only values 1 through 9 are valid.", player);
     println!("");
-    let mut position_ref = 0 as u8;
-    for position in the_board.iter() {
-        position_ref = position_ref + 1;
-        if position_ref % 3 != 0 {
-            print!(" {} |", get_board_character(*position, position_ref));
+    let mut tile_ref = 0 as u8;
+    for tile in the_board.iter() {
+        tile_ref = tile_ref + 1;
+        if tile_ref % 3 != 0 {
+            print!(" {} |", get_board_character(*tile, tile_ref));
         } else {
-            print!(" {} ", get_board_character(*position, position_ref));
+            print!(" {} ", get_board_character(*tile, tile_ref));
             io::stdout().flush().unwrap();
             println!("");
             println!("---|---|---");
@@ -98,7 +98,7 @@ fn take_turn(player: u8, the_board: &mut[u8; 9]) {
 
     // check that the user has not selected a tile that has already been chosen
     if the_board[usize::from(selection - 1)] != 0 {
-        println!("Position {} has already been played. Choose another position.", selection);
+        println!("Tile {} has already been played. Choose another tile.", selection);
         ask_for_input();
         return take_turn(player, the_board);
     }
@@ -186,8 +186,8 @@ fn test_player_has_won() {
 }
 
 fn game_is_draw(the_board: &[u8; 9]) -> bool {
-    for position in the_board.iter() {
-        if *position == 0 {
+    for tile in the_board.iter() {
+        if *tile == 0 {
             return false;
         }
     }
